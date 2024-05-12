@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               } else {
                 print(
-                    "Programnya rusak bukan programmernya orang udah di masukin masa gaada Speechnya"); // Inform the user
+                    "Programnya rusak bukan programmernya. Orang udah di masukin masa gaada Speechnya"); // Inform the user
               }
             }
           },
