@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var kata = "Tekan dan tahan Tombol untuk Memulai";
+  var tekan = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,32 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: CircleAvatar(
-      
-        radius: 30,
-        backgroundColor: Colors.green,
-        child: Icon(
-          Icons.mic,
-          color: Colors.white,
-        
+      floatingActionButton: AvatarGlow(
+        //pakek ini biar ga hambar animasi button nya  ya dit
+        animate: tekan,
+        duration: Duration(seconds: 2),
+        glowColor: Color.fromARGB(97, 14, 77, 55),
+        repeat: true,
+        startDelay: Duration(milliseconds: 15),
+        child: GestureDetector(
+          onTapDown: (details) {
+            setState(() {
+              tekan = true;
+            });
+          },
+          onTapUp: (details) {
+            setState(() {
+              tekan = false;
+            });
+          },
+          child: CircleAvatar(
+            radius: 35,
+            backgroundColor: Colors.green,
+            child: Icon(
+              tekan ? Icons.mic : Icons.mic_none,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
