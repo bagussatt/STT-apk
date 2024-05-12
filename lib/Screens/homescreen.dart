@@ -65,16 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
               kata,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
-            ElevatedButton.icon(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HistoryPage(history: history),
-                ),
-              ),
-              icon: Icon(Icons.history),
-              label: Text("Lihat Histori"),
-            ),
           ],
         ),
       ),
