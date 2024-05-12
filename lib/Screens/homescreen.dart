@@ -1,5 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  SpeechToText speechToText = SpeechToText();
+
   var kata = "Tekan dan tahan Tombol untuk Memulai";
   var tekan = false;
 
@@ -40,12 +43,26 @@ class _HomeScreenState extends State<HomeScreen> {
         repeat: true,
         startDelay: Duration(milliseconds: 15),
         child: GestureDetector(
-          onTapDown: (details) {
-            setState(() {
-              tekan = true;
-            });
+          onTapDown: (details) async {
+            if (!tekan) {
+              var available = await speechToText.initialize();
+              if (available) {
+                setState(() {
+                  tekan = true;
+                });
+                speechToText.listen(onResult: (hasil) {
+                  setState(() {
+                    kata = hasil.recognizedWords;
+                  });
+                });
+              } else {
+                print(
+                    "Programnya rusak bukan programmernya orang udah di masukin masa gaada Speechnya"); // Inform the user
+              }
+            }
           },
           onTapUp: (details) {
+            speechToText.stop();
             setState(() {
               tekan = false;
             });
